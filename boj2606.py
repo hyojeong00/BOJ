@@ -1,36 +1,32 @@
 from collections import deque
 
-def bfs(graph, root):
+
+def bfs(graph, start):
     visited = []
-    queue = deque([root])
-    
-    while queue:
-        n = queue.popleft()
+    q = deque([start])
+
+    while q:
+        n = q.popleft()
         if n not in visited:
             visited.append(n)
-            temp = list(set(graph[n])-set(visited))
-            temp.sort()
-            queue += temp
-    return len(visited)-1
+            q.extend(graph[n])
+    return len(visited) - 1
 
-n = int(input()) # 컴퓨터 수
-if n >100:
-    quit()
 
-m = int(input()) # 연결된 컴퓨터 번호 쌍
+n = int(input())  # 컴퓨터 수
+m = int(input())  # 연결된 컴퓨터 번호 쌍
 
-graph = {}  # 그래프 만들기
+graph = {}
 for i in range(m):
-    edge_info = input().split(' ')
-    n1, n2 = [int(j) for j in edge_info]
-    if n1 not in graph:
-        graph[n1] = [n2]
-    elif n2 not in graph[n1]:
-        graph[n1].append(n2)
+    a, b = map(int, input().split())
+    if a not in graph:
+        graph[a] = [b]
+    elif b not in graph[a]:
+        graph[a].append(b)
 
-    if n2 not in graph:
-        graph[n2] = [n1]
-    elif n1 not in graph[n2]:
-        graph[n2].append(n1)
-        
-print(bfs(graph,1))
+    if b not in graph:
+        graph[b] = [a]
+    elif a not in graph[b]:
+        graph[b].append(a)
+print(graph)
+print(bfs(graph, 1))
