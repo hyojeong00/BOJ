@@ -27,6 +27,9 @@ N = int(input())
 arr = [list(input()) for _ in range(N)]
 
 # NO 색맹-----------------------------------
+
+
+
 visited = [[False] * N for _ in range(N)]
 result = 0
 
